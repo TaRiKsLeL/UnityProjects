@@ -22,6 +22,7 @@ public class ObstaclesGenerator : MonoBehaviour
     GameSession gameSession;
     float cameraOrtSize;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,12 +80,6 @@ public class ObstaclesGenerator : MonoBehaviour
             new Vector2(Random.Range(0, (float)(cameraOrtSize * 2.0) * Screen.width / Screen.height), cameraOrtSize * 2 + 1), Quaternion.identity);
             yield return new WaitForSeconds(gameSession.GetLevelGap()/holesAmountPerLevel);
         }
-
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
 
     }
 

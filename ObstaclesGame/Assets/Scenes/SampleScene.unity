@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -203,6 +204,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1343215050
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8323075639720236484, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 194.78857
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323075639720236484, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 248.52017
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323075639720236484, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -238.25415
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323075639720236484, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323075639720236484, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323075639720236484, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323075639720236484, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323075639720236484, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323075639720236484, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323075639720236484, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323075639720236484, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323075639720236486, guid: 4e8c2400116dd6143ab15826498d079c,
+        type: 3}
+      propertyPath: m_Name
+      value: SceneLoader
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4e8c2400116dd6143ab15826498d079c, type: 3}
 --- !u!1 &1566694986
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,11 +562,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1541884937716002904, guid: e4f28698125f001418d0b974df7a3984,
-        type: 3}
-      propertyPath: m_Name
-      value: MusicPlayer
-      objectReference: {fileID: 0}
     - target: {fileID: 1541884937716002902, guid: e4f28698125f001418d0b974df7a3984,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -551,6 +616,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1541884937716002904, guid: e4f28698125f001418d0b974df7a3984,
+        type: 3}
+      propertyPath: m_Name
+      value: MusicPlayer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4f28698125f001418d0b974df7a3984, type: 3}
@@ -647,6 +717,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeedsGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 4914169046081565009, guid: 36346a20e63587446b02e1d408febdf3,
+        type: 3}
+      propertyPath: amountPerLevel
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4914169046081565009, guid: 36346a20e63587446b02e1d408febdf3,
+        type: 3}
+      propertyPath: projectileSeedPrefab
+      value: 
+      objectReference: {fileID: 4312678264879033701, guid: 2ede563fb8d749342a6cc4dec3e5b2af,
+        type: 3}
+    - target: {fileID: 4914169046081565009, guid: 36346a20e63587446b02e1d408febdf3,
+        type: 3}
+      propertyPath: healthSeedPrefab
+      value: 
+      objectReference: {fileID: 3110870735176308824, guid: 4bccc1f612c9e3645848b2483970e324,
+        type: 3}
+    - target: {fileID: 4914169046081565009, guid: 36346a20e63587446b02e1d408febdf3,
+        type: 3}
+      propertyPath: projectileSeedsAmountPerLevel
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4914169046081565009, guid: 36346a20e63587446b02e1d408febdf3,
+        type: 3}
+      propertyPath: healthSeedsAmountPerLevel
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 4914169046081565022, guid: 36346a20e63587446b02e1d408febdf3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -702,33 +799,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4914169046081565009, guid: 36346a20e63587446b02e1d408febdf3,
-        type: 3}
-      propertyPath: amountPerLevel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4914169046081565009, guid: 36346a20e63587446b02e1d408febdf3,
-        type: 3}
-      propertyPath: projectileSeedPrefab
-      value: 
-      objectReference: {fileID: 4312678264879033701, guid: 2ede563fb8d749342a6cc4dec3e5b2af,
-        type: 3}
-    - target: {fileID: 4914169046081565009, guid: 36346a20e63587446b02e1d408febdf3,
-        type: 3}
-      propertyPath: healthSeedPrefab
-      value: 
-      objectReference: {fileID: 3110870735176308824, guid: 4bccc1f612c9e3645848b2483970e324,
-        type: 3}
-    - target: {fileID: 4914169046081565009, guid: 36346a20e63587446b02e1d408febdf3,
-        type: 3}
-      propertyPath: projectileSeedsAmountPerLevel
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4914169046081565009, guid: 36346a20e63587446b02e1d408febdf3,
-        type: 3}
-      propertyPath: healthSeedsAmountPerLevel
-      value: 0.4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36346a20e63587446b02e1d408febdf3, type: 3}
 --- !u!1001 &5304296039505890790
@@ -738,11 +808,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5304296041609321138, guid: 518ff84ac2d93424795ec399f6e74679,
-        type: 3}
-      propertyPath: m_Name
-      value: DestroyObstaclesTrigger
-      objectReference: {fileID: 0}
     - target: {fileID: 5304296041609321136, guid: 518ff84ac2d93424795ec399f6e74679,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -797,6 +862,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304296041609321138, guid: 518ff84ac2d93424795ec399f6e74679,
+        type: 3}
+      propertyPath: m_Name
+      value: DestroyObstaclesTrigger
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 518ff84ac2d93424795ec399f6e74679, type: 3}
@@ -955,6 +1025,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7377288687904956428, guid: d89e3b1a5495e3b41bc7b1c9a5eb4c74,
+        type: 3}
+      propertyPath: background
+      value: 
+      objectReference: {fileID: 4082726311824766095}
+    - target: {fileID: 7377288687904956428, guid: d89e3b1a5495e3b41bc7b1c9a5eb4c74,
+        type: 3}
+      propertyPath: trees
+      value: 
+      objectReference: {fileID: 4082726313483121963}
+    - target: {fileID: 7377288687904956428, guid: d89e3b1a5495e3b41bc7b1c9a5eb4c74,
+        type: 3}
+      propertyPath: increaseLevelGap
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7377288687904956429, guid: d89e3b1a5495e3b41bc7b1c9a5eb4c74,
         type: 3}
       propertyPath: m_Name
@@ -1015,21 +1100,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7377288687904956428, guid: d89e3b1a5495e3b41bc7b1c9a5eb4c74,
-        type: 3}
-      propertyPath: background
-      value: 
-      objectReference: {fileID: 4082726311824766095}
-    - target: {fileID: 7377288687904956428, guid: d89e3b1a5495e3b41bc7b1c9a5eb4c74,
-        type: 3}
-      propertyPath: trees
-      value: 
-      objectReference: {fileID: 4082726313483121963}
-    - target: {fileID: 7377288687904956428, guid: d89e3b1a5495e3b41bc7b1c9a5eb4c74,
-        type: 3}
-      propertyPath: increaseLevelGap
-      value: 15
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d89e3b1a5495e3b41bc7b1c9a5eb4c74, type: 3}
 --- !u!1001 &8325776936973907367
@@ -1039,11 +1109,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5414413002096312460, guid: 3546c4b4b1a682b4787c72841d6ab03d,
-        type: 3}
-      propertyPath: m_Name
-      value: BackgroundTrees
-      objectReference: {fileID: 0}
     - target: {fileID: 5414413002096312449, guid: 3546c4b4b1a682b4787c72841d6ab03d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1098,6 +1163,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414413002096312460, guid: 3546c4b4b1a682b4787c72841d6ab03d,
+        type: 3}
+      propertyPath: m_Name
+      value: BackgroundTrees
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3546c4b4b1a682b4787c72841d6ab03d, type: 3}

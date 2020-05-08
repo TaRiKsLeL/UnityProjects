@@ -90,7 +90,7 @@ SphereCollider:
   m_GameObject: {fileID: 5727763234573184434}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fc7da760fda2954bab9fb649593b0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
-  pacmanChomp: {fileID: 8300000, guid: abe5790b4e321b649a3481686783d0c0, type: 3}
+  speed: 4
+  chomp: {fileID: 8300000, guid: abe5790b4e321b649a3481686783d0c0, type: 3}
 --- !u!54 &6979170567994084517
 Rigidbody:
   m_ObjectHideFlags: 0

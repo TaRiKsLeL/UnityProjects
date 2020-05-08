@@ -147,11 +147,6 @@ public class BoardController : MonoBehaviour
         Foo.Swap<GameObject>(ref itemsBoard[nullItem.x, nullItem.y], ref itemsBoard[swapItem.x, swapItem.y]);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
 
 public static class Foo

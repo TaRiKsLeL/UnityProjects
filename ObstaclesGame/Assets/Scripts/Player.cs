@@ -13,21 +13,12 @@ public class Player : MonoBehaviour
 
     private bool isBoosting = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         Move();
         TryShooting();
         TryToStopBoosting();
     }
-
-    
 
     private void Move()
     {
@@ -91,6 +82,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag.Equals("Hole") || health <= 0)
         {
             Destroy(gameObject);
+            FindObjectOfType<SceneLoader>().LoadNextScene();
         }
         if (collision.gameObject.tag.Equals("ProjectileSeed"))
         {
