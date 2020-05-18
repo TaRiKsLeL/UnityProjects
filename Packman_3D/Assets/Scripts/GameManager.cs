@@ -1,23 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using System;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject pacman;
-    [SerializeField] GameObject dot;
+    public int level = 1;
+    public int hp = 3;
+    public int score = 0;
+    public float counter = 0;
+
+    [SerializeField] GameObject pacmanPrefab;
+    [SerializeField] GameObject dotPrefab;
     [SerializeField] GameObject wallPrefab;
 
-    [Header("Pacman Position")]
-    [SerializeField] float x = 1;
-    [SerializeField] float z = 1;
+    [SerializeField] NavMeshSurface surface;
 
-    Vector3 groundScale;
+    [Header("Enemy")]
+    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] float enemyMinSpeed=1f;
+    [SerializeField] float enemyMaxSpeed=5f;
+    [SerializeField] List<Material> enemyMaterials;
+
+    private Transform levelTransform;
+    private Vector3 pacmanPosition;
+
     GameState gameState;
 
-    private int[,] map =
+    private int randMapIndex=0;
+
+    private List<int[,]> arrayList = new List<int[,]>
     {
+         new int[,]{
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
         {1,0,1,1,1,1,1,0,1,1,1,1,1,0,1 },
@@ -33,17 +48,56 @@ public class GameManager : MonoBehaviour
         {1,0,1,1,1,1,1,0,1,1,1,1,1,0,1 },
         {1,0,0,0,1,0,0,0,0,0,1,0,0,0,1 },
         {1,1,1,1,1,1,1,0,1,1,1,1,1,1,1 }
+         },
+         new int[,]{
+        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+        {1,0,0,0,0,1,0,0,0,0,0,0,0,0,1 },
+        {1,0,1,1,0,1,1,0,1,1,1,1,1,0,1 },
+        {1,0,1,0,0,0,0,0,1,0,0,0,1,0,1 },
+        {1,0,1,1,1,0,1,1,1,0,1,1,1,0,1 },
+        {1,0,1,0,0,0,0,0,1,0,0,0,1,0,1 },
+        {1,0,0,0,0,0,1,1,1,0,0,0,1,0,1 },
+        {1,0,1,0,0,0,0,0,0,0,1,0,0,0,1 },
+        {1,0,0,0,1,0,1,0,1,1,1,1,1,0,1 },
+        {1,0,0,0,1,0,0,0,0,0,1,0,0,0,1 },
+        {1,1,1,1,1,0,1,1,1,1,1,0,1,1,1 },
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
+        {1,0,1,1,1,1,1,1,1,0,1,1,1,1,1 },
+        {1,0,0,0,1,0,0,0,0,0,0,0,0,0,1 },
+        {1,1,1,1,1,1,1,0,1,1,1,1,1,1,1 }
+         }
     };
-    MapMarks[,] mapMarks;
 
-    // Start is called before the first frame update
     void Start()
     {
-        groundScale = GameObject.FindWithTag("Ground").transform.localScale;
-        pacman = Instantiate(pacman, new Vector3(x+0.5f, 0.5f, z + 0.5f), Quaternion.identity);
+        GenerateLevel();
+    }
+
+
+    void Update()
+    {
+        counter += Time.deltaTime;
+    }
+
+    public void GenerateLevel()
+    {
+        Camera.main.backgroundColor = GetRandColor();
+
+
+        levelTransform = new GameObject("Level").transform;
+
+        randMapIndex = UnityEngine.Random.Range(0, arrayList.Count);
+        GameObject.FindWithTag("Ground").transform.localScale = new Vector3(arrayList[randMapIndex].GetLength(0), 1, arrayList[randMapIndex].GetLength(1));
+
         GenerateDotsAndWalls();
-        gameState = GameState.BEFORE_FIRST_CLICK;
-        //InitMapArray();
+        surface.BuildNavMesh();
+
+        var pacmanPos = GetRandMapPosition(arrayList[randMapIndex]);
+        GameObject toInstanctiate = Instantiate(pacmanPrefab, new Vector3(pacmanPos.x + 0.5f, 0.5f, pacmanPos.y + 0.5f), Quaternion.identity);
+        pacmanPosition = toInstanctiate.transform.position;
+        toInstanctiate.transform.SetParent(levelTransform);
+
+        GenerateEnemies(level);
     }
 
     private void GenerateDotsAndWalls()
@@ -51,69 +105,67 @@ public class GameManager : MonoBehaviour
         Transform dots = new GameObject("Dots").transform;
         Transform walls = new GameObject("Walls").transform;
 
-        for(int i = 0; i < groundScale.x; i++)
+        for(int i = 0; i < arrayList[randMapIndex].GetLength(0); i++)
         {
-            for(int j = 0; j < groundScale.z; j++)
+            for(int j = 0; j < arrayList[randMapIndex].GetLength(1); j++)
             {
-                if (map[i, j] == 0)
+                if (arrayList[randMapIndex][i, j] == 0)
                 {
-                    if (pacman.transform.position.x == i + 0.5f && pacman.transform.position.z == j + 0.5f)
+                    if (pacmanPosition.x == i + 0.5f && pacmanPosition.z == j + 0.5f)
                         continue;
-                    GameObject toInstanctiate = Instantiate(dot, new Vector3(i + 0.5f, dot.transform.position.y, j + 0.5f), Quaternion.identity);
+                    GameObject toInstanctiate = Instantiate(dotPrefab, new Vector3(i + 0.5f, dotPrefab.transform.position.y, j + 0.5f), Quaternion.identity);
                     toInstanctiate.transform.SetParent(dots);
-                }else if(map[i, j] == 1)
+                }else if(arrayList[randMapIndex][i, j] == 1)
                 {
                     GameObject toInstanctiate = Instantiate(wallPrefab, new Vector3(i + 0.5f, wallPrefab.transform.position.y, j + 0.5f), Quaternion.identity);
                     toInstanctiate.transform.SetParent(walls);
                 }
             }
         }
+
+        dots.SetParent(levelTransform);
+        walls.SetParent(levelTransform);
     }
 
-    private void InitMapArray()
+    private void GenerateEnemies(int amount)
     {
-        map = new int[(int)groundScale.x, (int)groundScale.z];
-        mapMarks = new MapMarks[(int)groundScale.x, (int)groundScale.z];
-
-        print(mapMarks.GetLength(0)+"   "+ mapMarks.GetLength(1));
-        int k = 0;
-
-        for (int i = 0; i < mapMarks.GetLength(0); i++)
+        Transform enemies = new GameObject("Enemies").transform;
+        for (int i = 0; i < amount; i++)
         {
-            for (int j = 0; j < mapMarks.GetLength(1); j++)
-            {
-                k++;
-                if (Physics.OverlapSphere(new Vector3(i + 0.5f, 0.5f, j + 0.5f), 0,9).Length<=0)
-                {
-                    mapMarks[i, j] = MapMarks.EMPTY;
-                }
-                else
-                {
-                    Instantiate(pacman, new Vector3(i + 0.5f, 0.8f, j + 0.5f), Quaternion.identity);
-                    mapMarks[i, j] = MapMarks.WALL;
-                }
-                print(k+"   "+Enum.GetName(typeof(MapMarks), mapMarks[i, j]));
-            }
-        }
+            var pos = GetRandMapPosition(arrayList[randMapIndex]);
 
+            GameObject toInstanctiate = Instantiate(enemyPrefab, new Vector3(pos.x + 0.5f, 0.5f, pos.y + 0.5f), Quaternion.identity);
+            toInstanctiate.GetComponent<NavMeshAgent>().speed = UnityEngine.Random.Range(enemyMinSpeed, enemyMaxSpeed + 1);
+            toInstanctiate.GetComponent<Renderer>().material = enemyMaterials[UnityEngine.Random.Range(0, enemyMaterials.Count)];   
+            toInstanctiate.transform.SetParent(enemies);
+        }
+        enemies.SetParent(levelTransform);
+    }
+
+    private Vector2 GetRandMapPosition(int[,] map)
+    {
+        int x = 0;
+        int y = 0;
+        do{
+            x = UnityEngine.Random.Range(0, map.GetLength(0));
+            y = UnityEngine.Random.Range(0, map.GetLength(1));
+        } while (map[x,y]==1);
+
+        Vector2 pos = new Vector2(x, y);
+        
+        return pos;
+    }
+
+    private Color GetRandColor()
+    {
+        return new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
     }
 
     public int[,] GetMap()
     {
-        return map;
+        return arrayList[randMapIndex];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
-
-enum MapMarks
-{
-    EMPTY,
-    WALL
 }
 
 enum GameState

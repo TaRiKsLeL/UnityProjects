@@ -16,10 +16,11 @@ public class GameSession : MonoBehaviour
     [SerializeField] GameObject frontParalax;
     [SerializeField] public float scrollSpeed = 0.5f;
 
+    [HideInInspector] public bool isBoosting = false;
+
     private float timer = 0f;
     private CarsGenerator carsGenerator;
     private int savedSec = 0;
-    private bool isBoosting = false;
 
     void Start()
     {
@@ -53,7 +54,7 @@ public class GameSession : MonoBehaviour
             fallingSpeed += 0.1f;
             scrollSpeed += 0.00725f;
             ChangeParalaxSpeed(scrollSpeed);
-            carsGenerator.AddToObstaclesAmount(1);
+            carsGenerator.AddToCarsAmount(1);
 
             savedSec = Convert.ToInt32(timer);
         }
@@ -96,7 +97,8 @@ public class GameSession : MonoBehaviour
     {
         if (isBoosting)
         {
-            return fallingSpeed / boostValue;
+            return boostValue;
+           // return fallingSpeed / boostValue;
         }
         return 1;
     }

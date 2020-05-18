@@ -32,7 +32,7 @@ public abstract class Character : MonoBehaviour
         Vector2 vector = new Vector2();
 
         vector.x = (int)transform.position.z;
-        vector.y = gameMap.GetLength(1) - (int)transform.position.x-1;
+        vector.y = (int)transform.position.x;
 
         return vector;
     }

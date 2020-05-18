@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class MoverDown : MonoBehaviour
 {
-
+    GameSession gameSession;
     private float movingSpeed=-1f;
 
     void Start()
     {
-        
+        gameSession = FindObjectOfType<GameSession>();
     }
 
     void Update()
@@ -25,11 +25,11 @@ public class MoverDown : MonoBehaviour
 
         if (movingSpeed!=-1)
         {
-            movementThisFrame = movingSpeed * Time.deltaTime;
+            movementThisFrame = movingSpeed * gameSession.GetBoostDelta() * Time.deltaTime;
         }
         else
         {
-            movementThisFrame = FindObjectOfType<GameSession>().GetFallingSpeed() * Time.deltaTime;
+            movementThisFrame = gameSession.GetFallingSpeed() * Time.deltaTime;
         }
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementThisFrame);
     }

@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class Pacman : Character
 {
-
-
-
     protected override void AttemptMove()
     {
         //OnClickMovement();       //1
 
+        //print("Position: " + GetPositionInArray());
         FreeMovement();            //2
     }
 
     private void OnClickMovement()
     {
+        //var position = transform.position;
+        //position.x = (int)position.x;
+        //position.z = (int)position.z;
+        //transform.position = position;
+
         SetupDirection();
 
         print(direction.ToString());
@@ -115,7 +118,9 @@ public class Pacman : Character
                 direction = Direction.NONE;
             }
         }
+
         print("Target: "+target);
+        print(gameMap);
     }
 
 
@@ -125,6 +130,25 @@ public class Pacman : Character
         {
             SoundsManager.instance.PlaySoundWithoutInterrupt(chomp);
             Destroy(other.gameObject);
+            gameManager.score += 10 * gameManager.level;
+
+            if (GameObject.FindGameObjectsWithTag("Dot").Length == 1)
+            {
+                gameManager.level++;
+                gameManager.hp += 5 * gameManager.level;
+                Destroy(GameObject.Find("Level"));
+                gameManager.GenerateLevel();
+            }
+        }
+
+        if (other.gameObject.tag.Equals("Enemy"))
+        {
+            gameManager.hp--;
+            if (gameManager.hp <= 0)
+            {
+                FindObjectOfType<UIManager>().GameOverTextSetActive(true);
+                FindObjectOfType<SceneManagerr>().LoadScene(0, 3);
+            }
         }
     }
 }
